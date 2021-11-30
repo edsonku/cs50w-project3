@@ -1,21 +1,104 @@
 {% extends 'base.html' %}
 {% block main %}
-<h1>simon</h1>
+<h1>Menu</h1>
+ <a href="addpasta/">pastas</a>
 
-
-<form method="post" action="{% url 'index' %}">
+<!-- <form method="post" action="{% url 'addpasta' %}">
     {% csrf_token %}
-    <label for="pizza">pizza</label>
-    <input type="text" name="pizza" id="pizza">
-
-    <label for="size">size</label>
-    <input type="text" name="size" id="size">
-
-    <label for="price">price</label>
-    <input type="number" name="price" id="price">
+<select name="pasta" id="">
+    {% for x in pasta%}
     
-    <button type="submit" id="submit"  class="btn btn-primary">Registrarse</button>
+    <option value="{{x.pk}}">{{x.pasta}}   {{x.price}}$</option>
 
-</form>
+    {%endfor%}
+</select>
+<input type="number" name="cantidad">
+<input type="submit" value="Enviar">
+    -->
+
+    
+
+
+    <!-- <div class="pizza">
+        <label for="pizza">pizza</label>
+        <input type="text" name="pizza" id="pizza">
+
+        <label for="stilo">stilo</label>
+        <input type="text" name="stilo" id="stilo">
+
+        <label for="size">size</label>
+        <input type="text" name="size" id="size">
+
+        <label for="price">price</label>
+        <input type="number" name="price" id="price">
+
+        <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
+
+    </div>
+
+    <div class="topping">
+        <label for="topping">topping</label>
+        <input type="text" name="topping" id="topping">
+
+        <label for="price">price</label>
+        <input type="number" name="pricetop" id="pricetop">
+
+        <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
+
+    </div>
+
+    <div class="sub">
+        <label for="sub">sub</label>
+        <input type="text" name="sub" id="sub">
+
+        <label for="Tamañosub">size</label>
+        <input type="text" name="Tamañosub" id="Tamañosub">
+
+        <label for="Preciosub">price</label>
+        <input type="number" name="Preciosub" id="Preciosub">
+
+        <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
+
+    </div>
+
+    <div class="salad">
+        <label for="salad">salad</label>
+        <input type="text" name="sub" id="sub">
+
+
+        <label for="Preciosub">price</label>
+        <input type="number" name="Preciosalad" id="Preciosub">
+
+        <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
+
+    </div>
+
+    <div class="pasta">
+        <label for="pasta">pasta</label>
+        <input type="text" name="pasta" id="pasta">
+
+        <label for="Preciosub">price</label>
+        <input type="number" name="Preciopasta" id="Preciosub">
+
+        <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
+
+    </div>
+
+    <div class="dinner">
+        <label for="dinner">Platillos</label>
+        <input type="text" name="dinner" id="dinner">
+
+        <label for="Tamañosub">size</label>
+        <input type="text" name="Tamañodinner" id="Tamañosub">
+
+        <label for="Preciosub">price</label>
+        <input type="number" name="Preciodinner" id="Preciosub">
+
+        <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
+
+    </div> -->
+
+<!-- 
+</form> -->
 
 {% endblock %}

@@ -6,4 +6,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("register/", views.register, name="register"),
     path('accounts/profile/', my_profile),
+    path("addpasta/", views.addpasta, name="addpasta"),
+    
 ]
