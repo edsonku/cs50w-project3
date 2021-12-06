@@ -2,11 +2,9 @@ from django.db import models
 from django.conf import settings
 # Create your models here.
 class Pizza(models.Model):
-    pizza = models.CharField(verbose_name="Tipo de pizza", max_length=50)
-    stilo = models.CharField(verbose_name="Estilo", max_length=50)
+    pizza = models.CharField(verbose_name="Estilo", max_length=50)
     size = models.CharField(verbose_name="Tamaño", max_length=75)
     price = models.FloatField(verbose_name="Precio")
-
 
     def __str__(self):
         
@@ -73,25 +71,47 @@ class Dinner(models.Model):
         return self.dinner
 
 
-
-
-# Detalles de las ordenes
-
 class Ordenes(models.Model):
     status=((0,"cancelado"),(1,"pendiente"),(2,"realizado"))
     cliente=models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="cliente", on_delete=models.CASCADE,related_name="orders")
     fecha=models.DateTimeField(verbose_name="tiempo",auto_now_add=True)
     estado=models.IntegerField(choices=status, default=1)
+    total=models.FloatField(default=0.0)
+    def __str__(self):
+        return self.cliente.username
 
-    
-
-class detallepasta(models.Model):
+class Detallepasta(models.Model):
     orden=models.ForeignKey(Ordenes, related_name="pastas", on_delete=models.CASCADE)
     pasta=models.ForeignKey(Pasta, related_name="items", on_delete=models.CASCADE)
     cantidad=models.IntegerField()
     price=models.FloatField(verbose_name="precio")
 
-class detallepizza(models.Model):
+  
+
+# class detalletopings(models.Model):
+#     orden=models.ForeignKey(Topings, related_name="topings", on_delete=models.CASCADE)
+#     cantidad=models.IntegerField()
+#     price=models.FloatField(verbose_name="precio")
+
+class Detallesub(models.Model):
+    orden=models.ForeignKey(Ordenes, related_name="subs", on_delete=models.CASCADE)
+    sub=models.ForeignKey(Subs, related_name="items", on_delete=models.CASCADE)
+    cantidad=models.IntegerField()
+    price=models.FloatField(verbose_name="precio")
+
+class Detalledinner(models.Model):
+    orden=models.ForeignKey(Ordenes, related_name="dinner", on_delete=models.CASCADE)
+    dinner=models.ForeignKey(Dinner, related_name="items", on_delete=models.CASCADE)
+    cantidad=models.IntegerField()
+    price=models.FloatField(verbose_name="precio")
+
+class Detallesalads(models.Model):
+    orden=models.ForeignKey(Ordenes, related_name="salad", on_delete=models.CASCADE)
+    salad=models.ForeignKey(Salads, related_name="items", on_delete=models.CASCADE)
+    cantidad=models.IntegerField()
+    price=models.FloatField(verbose_name="precio")
+
+class Detallepizza(models.Model):
     orden=models.ForeignKey(Ordenes, related_name="pizza", on_delete=models.CASCADE)
     pizza=models.ForeignKey(Pizza, related_name="items", on_delete=models.CASCADE)
     cantidad=models.IntegerField()

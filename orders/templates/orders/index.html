@@ -1,8 +1,60 @@
 {% extends 'base.html' %}
+
+{% block head_css %}
+{% endblock %}
+
 {% block main %}
 <h1>Menu</h1>
  <a href="addpasta/">pastas</a>
+ <a href="addsub/">sub </a>
+ <a href="adddinner/">dinner</a>
+ <a href="addsalad/">salad</a>
+ <a href="addpizza/">pizza</a>
 
+
+
+ <div class="cards style-1">
+    <div class="col">
+      <div class="card"><img class="card-image" src="https://saboryestilo.com.mx/wp-content/uploads/elementor/thumbs/masa-para-pizza-3-1-os3aa3ck56334eoe88d8hkem59xt1jziomikxlzx34.jpg"/>
+        <div class="card-title">Pizza</div>
+        <div class="card-description">Hot lunch</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card"><img class="card-image" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=c75e0437e819afdceeb3050a6bcdd71b&amp;auto=format&amp;fit=crop&amp;w=353&amp;q=80"/>
+        <div class="card-title">Salads</div>
+        <div class="card-description">Very tasty and healthy</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card"><img class="card-image" src="https://img.money.com/2018/11/national-sandwich-day-deals-2018-171589530.jpg?quality=60&w=800"/>
+        <div class="card-title">Subs</div>
+        <div class="card-description">Colorful deserts</div>
+      </div>
+    </div>
+    <div class="col">
+        <div class="card"><img class="card-image" src="https://s1.eestatic.com/2020/01/22/cocinillas/recetas/pasta-y-arroz/espaguetis-salmon-queso_philadelphia_461715202_143042655_1706x960.jpg"/>
+          <div class="card-title">Pastas</div>
+          <div class="card-description">Colorful deserts</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card"><img class="card-image" src="https://www.eatthis.com/wp-content/uploads/sites/4/2018/12/firecracker-salmon.jpg?quality=82&strip=all"/>
+          <div class="card-title">Dinner</div>
+          <div class="card-description">Colorful deserts</div>
+        </div>
+      </div>
+      
+  </div>
+
+
+
+
+
+
+
+
+ 
 <!-- <form method="post" action="{% url 'addpasta' %}">
     {% csrf_token %}
 <select name="pasta" id="">

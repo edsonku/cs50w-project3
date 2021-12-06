@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Menu</h1>
+
+
+<form method="post" action="{% url 'addsub' %}">
+    {% csrf_token %}
+<select name="sub" id="">
+    {% for x in sub%}
+    
+    <option value="{{x.pk}}">{{x.subs}}  {{x.size}}   {{x.price}}$</option>
+
+    {%endfor%}
+</select>
+<input type="number" name="cantidad">
+<input type="submit" value="Enviar">
+</form>
+
+
+{% endblock %}

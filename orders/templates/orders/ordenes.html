@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Ordenes</h1>
+
+
+<form method="post" action="{% url 'ordenes' %}">
+    {% csrf_token %}
+
+    <ul>
+    {% for x in cliente %}
+    
+    <li value="{{x.pk}}"> {{x.cliente}} {{x.pizza.all}} {{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+    <li value="{{x.pk}}"> {{x.cliente}} {{x.salad}} {{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+    {%endfor%}
+    </ul>
+    <hr>
+    <ul>
+    {% for x in sal %}
+    
+    <li value="{{x.pk}}"> {{x.cliente}} {{x.salad}} {{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+
+    {%endfor%}
+    </ul>
+    <hr>
+    <ul>
+    {% for x in din %}
+    
+    <li value="{{x.pk}}"> {{x.cliente}} {{x.dinner}} {{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+
+    {%endfor%}
+    </ul>
+    <hr>
+    <ul>
+    {% for x in pas %}
+    
+    <li value="{{x.pk}}"> {{x.cliente}} {{x.pasta}} {{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+
+    {%endfor%}
+    </ul>
+    <hr>
+    <ul>
+    {% for x in sub %}
+    
+    <li value="{{x.pk}}"> {{x.cliente}} {{x.sub}} {{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+
+    {%endfor%}
+    </ul>
+    
+
+
+
+<input type="submit" value="Enviar">
+</form>
+
+
+{% endblock %}

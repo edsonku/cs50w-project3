@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1> Carrito</h1>
+
+
+
+    {% csrf_token %}
+
+    <ul>
+    {% if car %}
+    <h2>Orden creada a las : {{car.fecha}}</h2>
+    {% for detallepasta in car.pastas.all %}
+    <li value="{{x.pk}}"> {{detallepasta.pasta.pasta}} {{detallepasta.price}} {{detallepasta.cantidad}}{{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+    {%endfor%}
+<hr>
+    {% for detallesub in car.subs.all %}
+    <li value="{{x.pk}}"> {{detallesub.sub.subs}} {{detallesub.price}} {{detallepasta.cantidad}}{{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+    {%endfor%}
+    <h4>{{car.total}}</h4>
+    {%endif%}
+    </ul>
+    <hr>
+
+
+
+{% endblock %}
