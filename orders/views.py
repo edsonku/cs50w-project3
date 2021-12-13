@@ -10,21 +10,7 @@ from orders.models import *
 
 # Create your views here.
 def index(request):
-    # formulario = Menu()
-    # if request.method =="GET":
-    #     print("GET method")
-    # else:
-    #     formulario = Menu(request.POST, request.FILES)
-    #     if formulario.is_valid():
-    #         formulario.save()
-    #     else:
-    #         print("Algo pasó")
-    #         print(request.POST)
-    #         cantidad
-
-
-    #     print("POST method")
-    
+   
     context = {
         
         "pasta": Pasta.objects.all() # select * from pizza
@@ -244,18 +230,25 @@ def addpizza(request):
 
 def ordenes(request):
       
-    # o=Ordenes.objects.all()
-    # price= o.pastas.all()
-    # print(price)
+    if request.method=="POST":
+        estado=request.POST.get("estado")
+        print(estado)
+        if estado == "0":
+            estado=getorder(request.user)
+            estado.estado=0
+            estado.save()
+
+        if estado == "2":
+            estado=getorder(request.user)
+            print("----")
+            print(estado)
+            estado.estado=2
+            estado.save()
+            
+
 
     context = {
-        
-        "pas": Detallepasta.objects.all(),
-        "piz": Detallepizza.objects.all(),
-        "sub": Detallesub.objects.all(),
-        "din": Detalledinner.objects.all(),
-        "sal": Detallesalads.objects.all(), # select * from pizza
-        "cliente": Ordenes.objects.all(),
+            "ordenes":Ordenes.objects.filter(estado=2),
         
     }
 

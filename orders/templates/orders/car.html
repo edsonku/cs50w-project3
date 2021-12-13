@@ -8,18 +8,42 @@
 
     <ul>
     {% if car %}
-    <h2>Orden creada a las : {{car.fecha}}</h2>
+    <h5>Orden creada a las : {{car.fecha}}</h5>
+
+    {% for detallepizza in car.pizza.all %}
+<li value="{{x.pk}}"> {{detallepizza.pizza.pizza}} {{detallepizza.pizza.size}} {{detallepizza.price}} {{detallepizza.cantidad}}</li>
+{%endfor%}
+<hr>
     {% for detallepasta in car.pastas.all %}
     <li value="{{x.pk}}"> {{detallepasta.pasta.pasta}} {{detallepasta.price}} {{detallepasta.cantidad}}{{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
     {%endfor%}
 <hr>
     {% for detallesub in car.subs.all %}
-    <li value="{{x.pk}}"> {{detallesub.sub.subs}} {{detallesub.price}} {{detallepasta.cantidad}}{{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+    <li value="{{x.pk}}"> {{detallesub.sub.subs}} {{detallesub.sub.size}} {{detallesub.price}} {{detallesub.cantidad}}</li>
     {%endfor%}
-    <h4>{{car.total}}</h4>
-    {%endif%}
-    </ul>
-    <hr>
+    
+
+<hr>
+
+{% for detalledinner in car.dinner.all %}
+<li value="{{x.pk}}"> {{detalledinner.dinner.dinner}} {{detalledinner.price}} {{detalledinner.cantidad}}</li>
+{%endfor%}
+<hr>
+{% for detallesalads in car.salad.all %}
+<li value="{{x.pk}}"> {{detallesalads.salad.salads}} {{detallesalads.price}} {{detallesalads.cantidad}}</li>
+{%endfor%}
+<h4>{{car.total}}</h4>
+
+<form action="{% url 'ordenes' %}" method="post">
+    {% csrf_token %}
+    <button class="bt btn-primary" name="estado"value="0">cancelar</button>
+    <button class="bt btn-primary" name="estado"value="2">Comprar</button>
+
+</form>
+
+{%endif%}
+
+
 
 
 
