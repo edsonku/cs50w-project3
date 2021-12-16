@@ -1,50 +1,106 @@
 {% extends 'base.html' %}
 {% block main %}
+{% if user.is_authenticated %}
 <h1> Carrito</h1>
 
 
 
     {% csrf_token %}
 
-    <ul>
-    {% if car %}
-    <h5>Orden creada a las : {{car.fecha}}</h5>
-
-    {% for detallepizza in car.pizza.all %}
-<li value="{{x.pk}}"> {{detallepizza.pizza.pizza}} {{detallepizza.pizza.size}} {{detallepizza.price}} {{detallepizza.cantidad}}</li>
-{%endfor%}
-<hr>
-    {% for detallepasta in car.pastas.all %}
-    <li value="{{x.pk}}"> {{detallepasta.pasta.pasta}} {{detallepasta.price}} {{detallepasta.cantidad}}{{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
-    {%endfor%}
-<hr>
-    {% for detallesub in car.subs.all %}
-    <li value="{{x.pk}}"> {{detallesub.sub.subs}} {{detallesub.sub.size}} {{detallesub.price}} {{detallesub.cantidad}}</li>
-    {%endfor%}
+    <div>{% if car %}
+        <h5>Orden creada a las : {{car.fecha}}</h5>
+    
+    <h4>Total:{{car.total| floatformat:2}} $</h4>
+    
+    <form action="{% url 'ordenes' %}" method="post">
+        {% csrf_token %}
+        <button class="bt btn-primary" name="estado"value="0">cancelar</button>
+        <button class="bt btn-primary" name="estado"value="2">Comprar</button>
+    
+    </form>
+    
+        {%endif%}</div>
     
 
-<hr>
-
-{% for detalledinner in car.dinner.all %}
-<li value="{{x.pk}}"> {{detalledinner.dinner.dinner}} {{detalledinner.price}} {{detalledinner.cantidad}}</li>
-{%endfor%}
-<hr>
-{% for detallesalads in car.salad.all %}
-<li value="{{x.pk}}"> {{detallesalads.salad.salads}} {{detallesalads.price}} {{detallesalads.cantidad}}</li>
-{%endfor%}
-<h4>{{car.total}}</h4>
-
-<form action="{% url 'ordenes' %}" method="post">
-    {% csrf_token %}
-    <button class="bt btn-primary" name="estado"value="0">cancelar</button>
-    <button class="bt btn-primary" name="estado"value="2">Comprar</button>
-
-</form>
-
-{%endif%}
 
 
-
-
-
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Orden</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for detallepizza in car.pizza.all %}
+      <tr>
+        <td>   
+            {{detallepizza.pizza.pizza}}
+               {{detallepizza.pizza.size}}, {%for topping in detallepizza.toppings.all%}
+               {{topping.topings}}
+               {%endfor%}  
+           </td>
+        <td>{{detallepizza.price}}$</td>
+        <td>{{detallepizza.cantidad}}</td>
+      </tr>
+      {%endfor%}
+      {% for detallepasta in car.pastas.all %}
+      <tr>
+        
+        <td>{{detallepasta.pasta.pasta}}</td>
+        <td>{{detallepasta.price}} $</td>
+        <td>{{detallepasta.cantidad}}</td> 
+      </tr>
+      {%endfor%}
+      {% for detallesub in car.subs.all %}
+      <tr>
+          <td>
+            {{detallesub.sub.subs}} {{detallesub.sub.size}} 
+            </td>
+      
+          <td>{{detallesub.price}}$</td>
+      
+          <td>{{detallesub.cantidad}}</td>
+      </tr>
+      {%endfor%}
+      {% for detalledinner in car.dinner.all %}
+      <tr>
+          <td>{{detalledinner.dinner.dinner}}</td>
+      
+          <td>{{detalledinner.price}}</td>
+          
+          
+          <td>{{detalledinner.cantidad}}</td>
+      </tr>
+      {%endfor%}
+      {% for detallesalads in car.salad.all %}  
+      <tr>
+          <td>{{detallesalads.salad.salads}}</td>
+      
+          <td>{{detallesalads.price}} </td>
+      
+          <td>{{detallesalads.cantidad}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+  {%else%}
+  <div class="cards style-1 justify-content-center">
+      <div class="col ">
+        <a href="{% url 'login' %}"><div class="card"><img class="card-image" src="https://cdn-icons-png.flaticon.com/512/2919/2919600.png"/>
+          <div class="card-title">Primero Ingresa</div>
+          <div class="card-description">Click para empezar</div>
+        </div></a>
+      </div>
+      <div class="col">
+          <a href="{% url 'register' %}"><div class="card"><img class="card-image" src="https://1001freedownloads.s3.amazonaws.com/icon/thumb/612/add-user.png"/>
+            <div class="card-title">Crea una cuenta</div>
+            <div class="card-description">Click para empezar</div>
+          </div></a>
+        </div>
+      </div>
+  
+  {% endif %}
 {% endblock %}

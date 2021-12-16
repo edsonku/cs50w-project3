@@ -2,20 +2,107 @@
 {% block main %}
 <h1>Ordenes</h1>
 
+{% if user.is_authenticated %}
+<table class="table table-success table-striped">
 
-    
-
-    <ul>
-    {% for x in ordenes %}
-    
-    <li>{{x.cliente}}  {{x.fecha}} {{x.total}}</li>
-    {%endfor%}
-    </ul>
-    
-
+    <thead>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Orden</th>
+    </thead>
 
 
+    <tbody>
+        {% for x in ordenes %}
+        <tr>
+            <td>{{x.cliente}}</td>
+            <td>{{x.fecha}}</td>
+            <td>{{x.total}} 
+                
+                
+                {%for detalle in x.pastas.all%}
+                {{detalle.pasta.pasta}}
+                {{detalle.cantidad}}
+                {{detalle.price}}
+                {%endfor%}
+            </td>
+
+               
+                    <li>{{x.detallepizza.pizza}} {{x.detallepizza.pizza.size}}
+                        {{x.detallepizza.price}} {{x.detallepizza.cantidad}}</li>
+                    
+            <td><button type="button"><a href="{% url 'detalleorden' x.pk %}">ver orden</a> </button>
+                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{x.pk}}">
+                    ver
+                </button></td>
+        </tr>
 
 
 
+<!-- Modal -->
+        <div class="modal fade" id="{{x.pk}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1>usuario</h1>
+                        <!-- {% for detallepizza in car.detallepizza.all %}
+                        <li value="{{x.pk}}"> {{detallepizza.pizza.pizza}} {{detallepizza.pizza.size}}
+                            {{detallepizza.price}} {{detallepizza.cantidad}}</li>
+                        {%endfor%}
+                        <hr>
+                        {% for detallepasta in car.pastas.all %}
+                        <li value="{{x.pk}}"> {{detallepasta.pasta.pasta}} {{detallepasta.price}}
+                            {{detallepasta.cantidad}}{{x.cantidad}}{{x.precio}} {{x.estado}} {{x.fecha}}</li>
+                        {%endfor%}
+                        <hr>
+                        {% for detallesub in Ordenes.subs.all %}
+                        <li value="{{x.pk}}"> {{detallesub.sub.subs}} {{detallesub.sub.size}} {{detallesub.price}}
+                            {{detallesub.cantidad}}</li>
+                        {%endfor%}
+
+
+                        <hr>
+
+                        {% for detalledinner in Ordenes.dinner.all %}
+                        <li value="{{x.pk}}"> {{detalledinner.dinner.dinner}} {{detalledinner.price}}
+                            {{detalledinner.cantidad}}</li>
+                        {%endfor%}
+                        <hr>
+                        {% for detallesalads in Ordenes.salad.all %}
+                        <li value="{{x.pk}}"> {{detallesalads.salad.salads}} {{detallesalads.price}}
+                            {{detallesalads.cantidad}}</li>
+                        {%endfor%} -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </tbody>
+</table>
+{%else%}
+<div class="cards style-1 justify-content-center">
+    <div class="col ">
+      <a href="{% url 'login' %}"><div class="card"><img class="card-image" src="https://cdn-icons-png.flaticon.com/512/2919/2919600.png"/>
+        <div class="card-title">Primero Ingresa</div>
+        <div class="card-description">Click para empezar</div>
+      </div></a>
+    </div>
+    <div class="col">
+        <a href="{% url 'register' %}"><div class="card"><img class="card-image" src="https://1001freedownloads.s3.amazonaws.com/icon/thumb/612/add-user.png"/>
+          <div class="card-title">Crea una cuenta</div>
+          <div class="card-description">Click para empezar</div>
+        </div></a>
+      </div>
+    </div>
+
+{% endif %}
+<!-- Button trigger modal -->
 {% endblock %}

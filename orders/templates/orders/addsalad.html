@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
+{% block head_css %}
+{% endblock %}
+{% block title  %}
+Salads
+    {% endblock %}
 {% block main %}
 <h1>Menu</h1>
 
-
+{% if user.is_authenticated %}
 <form method="post" action="{% url 'addsalad' %}">
     {% csrf_token %}
 <select name="salad" id="">
@@ -12,9 +17,68 @@
 
     {%endfor%}
 </select>
-<input type="number" name="cantidad">
+<input type="number" name="cantidad"  min="0">
 <input type="submit" value="Enviar">
 </form>
 
+<table class="table table-success table-striped">
 
+  <thead>
+      <th>Salads</th>
+
+      <th>Price</th>
+      
+  </thead>
+
+
+  <tbody>
+      {% for x in salad%}
+      <tr>
+          <td>{{x.salads}}</td>
+          
+          <td>{{x.price}}$</td>
+      </tr>
+
+      {%endfor%}
+  </tbody>
+</table>
+
+{%else%}
+<table class="table table-success table-striped">
+
+    <thead>
+        <th>Salads</th>
+
+        <th>Price</th>
+        
+    </thead>
+
+
+    <tbody>
+        {% for x in salad%}
+        <tr>
+            <td>{{x.salads}}</td>
+            
+            <td>{{x.price}}$</td>
+        </tr>
+
+        {%endfor%}
+    </tbody>
+</table>
+<div class="cards style-1 justify-content-center">
+    <div class="col ">
+      <a href="{% url 'login' %}"><div class="card"><img class="card-image" src="https://cdn-icons-png.flaticon.com/512/2919/2919600.png"/>
+        <div class="card-title">Primero Ingresa</div>
+        <div class="card-description">Click para empezar</div>
+      </div></a>
+    </div>
+    <div class="col">
+        <a href="{% url 'register' %}"><div class="card"><img class="card-image" src="https://1001freedownloads.s3.amazonaws.com/icon/thumb/612/add-user.png"/>
+          <div class="card-title">Crea una cuenta</div>
+          <div class="card-description">Click para empezar</div>
+        </div></a>
+      </div>
+    </div>
+
+{% endif %}
 {% endblock %}

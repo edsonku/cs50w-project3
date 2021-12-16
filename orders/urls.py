@@ -13,5 +13,6 @@ urlpatterns = [
     path("addsalad/", views.addsalad, name="addsalad"),
     path("ordenes/", views.ordenes, name="ordenes"),
     path("car/", views.mycar, name="car"),
+    path("detalleorden/<int:pk_order>",views.detalleorden, name="detalleorden")
      
 ]

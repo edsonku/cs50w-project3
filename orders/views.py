@@ -28,6 +28,11 @@ def getorder(user):
     if not ordern:
        ordern=Ordenes.objects.create(cliente=user)
     return ordern
+def georder(user):
+    ordern=Ordenes.objects.filter(estado=2).first()
+    if not ordern:
+       ordern=Ordenes.objects.create(cliente=user)
+    return ordern
 
 
 
@@ -53,28 +58,15 @@ def addpasta(request):
         orden=getorder(request.user)
         
         cantidad=int(request.POST.get("cantidad"))
-        print("---------------------------cantidad")
-        print(cantidad)
         id_pasta=request.POST.get("pasta")
-        print("---------------------------pasta")
-        print(id_pasta)
         pasta=Pasta.objects.get(pk=id_pasta)
-        print("---------------------------idpasta")
-        print(pasta)
         price=pasta.price
-        print("----------------price")
-        print(price)
         total_pasta=(price*cantidad)
-        print("----------------total")
-        print(total_pasta)
         orden.total+=total_pasta
         orden.save()
         detallepasta_O=Detallepasta(orden=orden,pasta=pasta,cantidad=cantidad,price=pasta.price)
-        print("---------------------------")
-        print(detallepasta_O)
         messages.success(request,f"Agregado al carrito")
         detallepasta_O.save()
-        print(detallepasta_O)
         return redirect("/")
     else:
         context = {
@@ -90,25 +82,14 @@ def addsub(request):
         orden=getorder(request.user)
         
         cantidad=int(request.POST.get("cantidad"))
-        print("---------------------------cantidad")
-        print(cantidad)
         id_subs=request.POST.get("sub")
-        print("---------------------------pasta")
-        print(id_subs)
         sub=Subs.objects.get(pk=id_subs)
-        print("---------------------------idpasta")
-        print(sub)
         price=sub.price
-        print("----------------price")
-        print(price)
         total_pasta=(price*cantidad)
-        print("----------------total")
-        print(total_pasta)
         orden.total+=total_pasta
         orden.save()
         detallesub_O=Detallesub(orden=orden,sub=sub,cantidad=cantidad,price=sub.price)
-        print("---------------------------")
-        print(detallesub_O)
+        messages.success(request,f"Agregado al carrito")
         detallesub_O.save()
         return redirect("/")
     else:
@@ -124,28 +105,15 @@ def addsub(request):
 def adddinner(request):
     if request.method=="POST":
         orden=getorder(request.user)
-        # print("---------------------------")
-        # print(orden)
         cantidad=int(request.POST.get("cantidad"))
-        print("---------------------------cantidad")
-        print(cantidad)
         id_dinners=request.POST.get("dinner")
-        print("---------------------------pasta")
-        print(id_dinners)
         dinner=Dinner.objects.get(pk=id_dinners)
-        print("---------------------------idpasta")
-        print(dinner)
         price=dinner.price
-        print("----------------price")
-        print(price)
         total_pasta=(price*cantidad)
-        print("----------------total")
-        print(total_pasta)
         orden.total+=total_pasta
         orden.save()
         detalledinner_O=Detalledinner(orden=orden,dinner=dinner,cantidad=cantidad,price=dinner.price)
-        print("---------------------------")
-        print(detalledinner_O)
+        messages.success(request,f"Agregado al carrito")
         detalledinner_O.save()
         return redirect("/")
     else:
@@ -160,27 +128,15 @@ def adddinner(request):
 def addsalad(request):
     if request.method=="POST":
         orden=getorder(request.user)
-        
         cantidad=int(request.POST.get("cantidad"))
-        print("---------------------------cantidad")
-        print(cantidad)
-        id_salads=request.POST.get("salad")
-        print("---------------------------pasta")
-        print(id_salads)
+        id_salads=request.POST.get("salad") 
         salad=Salads.objects.get(pk=id_salads)
-        print("---------------------------idpasta")
-        print(salad)
         price=salad.price
-        print("----------------price")
-        print(price)
         total_pasta=(price*cantidad)
-        print("----------------total")
-        print(total_pasta)
         orden.total+=total_pasta
         orden.save()
         detallesalad_O=Detallesalads(orden=orden,salad=salad,cantidad=cantidad,price=salad.price)
-        print("---------------------------")
-        print(detallesalad_O)
+        messages.success(request,f"Agregado al carrito")
         detallesalad_O.save()
         return redirect("/")
     else:
@@ -196,6 +152,11 @@ def addsalad(request):
 def addpizza(request):
     if request.method=="POST":
         orden=getorder(request.user)
+        id_t1=request.POST.get("toping1")
+        
+        id_t2=request.POST.get("toping2")
+        
+        id_t3=request.POST.get("toping3")
         
         cantidad=int(request.POST.get("cantidad"))
         print("---------------------------cantidad")
@@ -205,17 +166,48 @@ def addpizza(request):
         print("---------------------------idpizza")
         print(pizza)
         price=pizza.price
+        size=pizza.size
         print("----------------price")
-        print(price)
+        print(size)
+        top=[]
+        if size=="1 Topping":
+            t1=Topings.objects.get(pk=id_t1)
+            print(t1)
+            top.append(t1)
+        if size=="2 Topping":
+            t1=Topings.objects.get(pk=id_t1)
+            print(t1)
+            t2=Topings.objects.get(pk=id_t2)
+            print(t2)
+            top.append(t1)
+            top.append(t2)
+        if size=="3 Topping":
+            t1=Topings.objects.get(pk=id_t1)
+            print(t1)
+            t2=Topings.objects.get(pk=id_t2)
+            print(t2)
+            t3=Topings.objects.get(pk=id_t3)
+            print(t3)
+            top.append(t1)
+            top.append(t2)
+            top.append(t3)
+
         total_pizza=(price*cantidad)
         print("----------------total")
         print(total_pizza)
+        
         orden.total+=total_pizza
         orden.save()
+        
         detallepizza_O=Detallepizza(orden=orden,pizza=pizza,cantidad=cantidad,price=pizza.price)
+        messages.success(request,f"Agregado al carrito")
         print("---------------------------")
         print(detallepizza_O)
         detallepizza_O.save()
+
+        for i in top:
+            detallepizza_O.toppings.add(i)
+        
         return redirect("/")
     else:
         context = {
@@ -229,26 +221,32 @@ def addpizza(request):
 
 
 def ordenes(request):
-      
+    state=1
     if request.method=="POST":
-        estado=request.POST.get("estado")
-        print(estado)
-        if estado == "0":
+        state=1
+        state=request.POST.get("estado")
+        if state == "0":
             estado=getorder(request.user)
             estado.estado=0
             estado.save()
+            
 
-        if estado == "2":
+        if state== "2":
             estado=getorder(request.user)
-            print("----")
-            print(estado)
             estado.estado=2
             estado.save()
             
-
+    else:
+        state=1
+        
+        
+        # x=Detallepizza.orden.all
+        # print(x)
 
     context = {
             "ordenes":Ordenes.objects.filter(estado=2),
+            "car":georder(request.user),
+            
         
     }
 
@@ -258,8 +256,19 @@ def mycar(request):
     #if request.method=="POST":
     orden=getorder(request.user)
     
-    
+    print(orden)
     context={
         "car":orden
     }
     return render(request,'orders/car.html',context)
+
+
+def detalleorden(request, pk_order):
+    orden=Ordenes.objects.get(pk=pk_order)
+    
+    print(orden)
+    context={
+       "orden":orden
+    }
+    
+    return render(request,'orders/detalleorden.html',context)
