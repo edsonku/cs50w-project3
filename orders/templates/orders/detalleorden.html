@@ -1,18 +1,79 @@
 {% extends 'base.html' %}
 {% block main %}
-<h1> Detalle Carrito</h1>
+<h1> Detalle orden {{orden.pk}}  de {{orden.cliente}}</h1>
 
 
 
-    {% csrf_token %}
+{% csrf_token %}
 
-    
 
-    
-<li>{%for detalle in orden.pastas.all%}
-    {{detalle.pasta.pasta}}
-    {{detalle.cantidad}}
-    {{detalle.price}}
-    {%endfor%}</li>
-    
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Orden</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for detalle in orden.pizza.all %}
+      <tr>
+        <td>   
+            {{detalle.pizza.pizza}}
+               {{detalle.pizza.size}}, {%for topping in detalle.toppings.all%}
+               {{topping.topings}}
+               {%endfor%}  
+           </td>
+        <td>{{detalle.price}}$</td>
+        <td>{{detalle.cantidad}}</td>
+      </tr>
+      {%endfor%}
+
+      {%for detalle in orden.pastas.all%}
+      <tr>
+        
+
+        <td>{{detalle.pasta.pasta}}</td>
+        <td>{{detalle.price}} $</td>
+        <td>{{detalle.cantidad}}</td> 
+      </tr>
+      {%endfor%}
+
+      {% for detalle in orden.subs.all %}
+      <tr>
+          <td>
+            {{detalle.sub.subs}} {{detalle.sub.size}} 
+            </td>
+      
+          <td>{{detalle.price}}$</td>
+      
+          <td>{{detalle.cantidad}}</td>
+      </tr>
+      {%endfor%}
+      {% for detalle in orden.dinner.all %}
+      <tr>
+          <td>{{detalle.dinner.dinner}}</td>
+      
+          <td>{{detalle.price}}</td>
+          
+          
+          <td>{{detalle.cantidad}}</td>
+      </tr>
+      {%endfor%}
+      {% for detalle in orden.salad.all %}  
+      <tr>
+          <td>{{detalle.salad.salads}}</td>
+      
+          <td>{{detalle.price}} </td>
+      
+          <td>{{detalle.cantidad}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+
+
+
+
 {% endblock %}
