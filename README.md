@@ -1,3 +1,4 @@
 # Project 3
 
-Web Programming with Python and JavaScript
+en este proyecto se realiza la pizzeria virtual donde se pueden comprar los elementos mostrados en el menu de alimentos, ingresando a travez deun usuario y contraseña unicos y registrandolo en la base da datos, una vez ingresado nos brinda la opcion de agregarlos a un carrito en espera de aceptar la compra o bien cancelarla, si fueron aceptadas pasaran a una tabla donde podran observarse la lista de todas las ordenes cuyo estado haya sido aceptado por el cliente.Añadiendo un formulacion donde se pueden agregar mas elementos a los menus respectivas categorias 
+WEB50 Edson Hans Martinez Espinoza grupo B.

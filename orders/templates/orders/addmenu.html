@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+Añadir al menu
+{% endblock %}
+{% block main %}
+<h1>Añadir Menu</h1>
+
+<form action="{% url 'addmenu'%}" method="post">
+    {% csrf_token %}
+    <div><label for="pizza">pizza</label>
+        <input type="text" name="pizza" id="pizza">
+
+        <label for="size">size</label>
+        <input type="text" name="size" id="size">
+
+        <label for="price">price</label>
+        <input type="number" name="price" id="price">
+        
+    </div>
+
+    <div><label for="sub">sub</label>
+        <input type="text" name="sub" id="sub">
+
+        <label for="sizesub">size</label>
+        <input type="text" name="sizesub" id="sizesub">
+
+        <label for="pricesub">price</label>
+        <input type="number" name="pricesub" id="pricesub">
+    </div>
+    <div><label for="salad">salad</label>
+        <input type="text" name="salad" id="salad">
+
+        <label for="pricesa">price</label>
+        <input type="number" name="pricesa" id="pricesa">
+    </div>
+    <div><label for="dinner">dinner</label>
+        <input type="text" name="dinner" id="dinner">
+
+        <label for="sized">size</label>
+        <input type="text" name="sized" id="sized">
+
+        <label for="priced">price</label>
+        <input type="number" name="priced" id="priced">
+    </div>
+    <div><label for="pasta">pasta</label>
+        <input type="text" name="pasta" id="pasta">
+
+        <label for="pricep">price</label>
+        <input type="number" name="pricep" id="pricep">
+    </div>
+    <button class="bt btn-primary" type="submit">Añadir</button>
+
+
+
+   
+
+
+</form>
+
+{% endblock %}

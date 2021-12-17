@@ -272,3 +272,56 @@ def detalleorden(request, pk_order):
     }
     
     return render(request,'orders/detalleorden.html',context)
+
+def addmenu(request):
+    if request.method=="POST":
+        pizza=request.POST.get("pizza")
+        price=request.POST.get("price")
+        size=request.POST.get("size")
+
+        sub=request.POST.get("sub")
+        pricesub=request.POST.get("pricesub")
+        sizesub=request.POST.get("sizesub")
+
+        salad=request.POST.get("salad")
+        pricesa=request.POST.get("pricesa")
+        
+
+        dinner=request.POST.get("dinner")
+        priced=request.POST.get("priced")
+        sized=request.POST.get("sized")
+
+        pasta=request.POST.get("pasta")
+        pricep=request.POST.get("pricep")
+        
+
+        print(pizza,price,size)
+
+        if pizza and price and size:
+            print("paso")
+            detalle_p=Pizza(pizza=pizza,size=size,price=price)
+            
+            detalle_p.save()
+        if sub and pricesub and sizesub:
+            print("pasosu")
+            detalle_s=Subs(subs=sub,size=sizesub,pricesub=pricesub)
+            
+            detalle_s.save()
+        if pasta and pricep :
+            print("pasop")
+            detalle_pa=Pizza(Pasta=pasta,price=pricep)
+            
+            detalle_pa.save()
+        if dinner and priced and sized:
+            print("pasod")
+            detalle_d=Dinner(dinner=dinner,size=sized,price=priced)
+            
+            detalle_d.save()
+        if salad and pricesa :
+            print("pasosa")
+            detalle_s=Salads(salads=salad,price=pricesa)
+            detalle_s.save()
+        messages.success(request,f"Agregado al menu")
+        return render(request,'orders/addmenu.html')
+    return render(request,'orders/addmenu.html')
+  
